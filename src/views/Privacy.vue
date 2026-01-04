@@ -165,7 +165,7 @@
       </div>
       
       <div class="footer-info">
-        <p>© 2025 Joshua Brunke. All rights reserved.</p>
+        <p>© 2025-26 Joshua Brunke. All rights reserved.</p>
       </div>
     </div>
   </div>

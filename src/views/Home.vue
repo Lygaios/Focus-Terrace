@@ -2,7 +2,7 @@
   <div class="home">
     <div class="hero-section">
       <h2>Welcome to Focus Terrace</h2>
-      <p>Your peaceful space for focused productivity</p>
+      <p>Stay a while and focus</p>
     </div>
     
     <div class="main-content">
