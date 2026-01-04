@@ -16,6 +16,10 @@
         <p class="placeholder-text">Timer functionality coming soon...</p>
       </div>
     </div>
+    
+    <div class="footer-info">
+      <p>© 2025 Joshua Brunke. All rights reserved.</p>
+    </div>
   </div>
 </template>
 
@@ -81,6 +85,19 @@
   opacity: 0.8;
   text-align: center;
   font-style: italic;
+}
+
+.footer-info {
+  text-align: center;
+  padding: 1.5rem 0;
+  margin-top: 3rem;
+}
+
+.footer-info p {
+  color: #34495e;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin: 0;
 }
 
 @media (max-width: 768px) {
