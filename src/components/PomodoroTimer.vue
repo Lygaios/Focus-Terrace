@@ -170,25 +170,29 @@ const resetTimer = () => {
 .session-btn {
   width: 3rem;
   height: 3rem;
-  border: 2px solid rgba(52, 152, 219, 0.3);
+  border: 2px solid rgba(135, 206, 235, 0.4);
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
   color: #2c3e50;
   font-size: 1.2rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .session-btn:hover {
-  background: rgba(52, 152, 219, 0.2);
-  border-color: rgba(52, 152, 219, 0.5);
+  background: rgba(135, 206, 235, 0.25);
+  border-color: rgba(135, 206, 235, 0.6);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .session-btn.active {
-  background: rgba(52, 152, 219, 0.8);
-  border-color: rgba(52, 152, 219, 1);
+  background: rgba(135, 206, 235, 0.5);
+  border-color: rgba(135, 206, 235, 0.8);
   color: white;
+  box-shadow: 0 6px 12px rgba(135, 206, 235, 0.3);
 }
 
 .session-status {
@@ -232,64 +236,79 @@ const resetTimer = () => {
 
 .start-button {
   padding: 1rem 2rem;
-  border: none;
+  border: 2px solid rgba(72, 201, 176, 0.5);
   border-radius: 15px;
   font-size: 1.1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   color: white;
   font-weight: 500;
-  background: rgba(46, 204, 113, 0.8);
+  background: rgba(72, 201, 176, 0.6);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 16px rgba(72, 201, 176, 0.2);
 }
 
 .start-button:hover {
-  background: rgba(46, 204, 113, 1);
+  background: rgba(72, 201, 176, 0.75);
+  border-color: rgba(72, 201, 176, 0.7);
   transform: translateY(-2px);
+  box-shadow: 0 12px 20px rgba(72, 201, 176, 0.3);
 }
 
 .start-button:active {
   transform: translateY(0);
+  box-shadow: 0 4px 8px rgba(72, 201, 176, 0.2);
 }
 
 .pause-button {
   padding: 1rem 2rem;
-  border: none;
+  border: 2px solid rgba(236, 159, 146, 0.5);
   border-radius: 15px;
   font-size: 1.1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   color: white;
   font-weight: 500;
-  background: rgba(241, 196, 15, 0.8);
+  background: rgba(236, 159, 146, 0.6);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 16px rgba(236, 159, 146, 0.2);
 }
 
 .pause-button:hover {
-  background: rgba(241, 196, 15, 1);
+  background: rgba(236, 159, 146, 0.75);
+  border-color: rgba(236, 159, 146, 0.7);
   transform: translateY(-2px);
+  box-shadow: 0 12px 20px rgba(236, 159, 146, 0.3);
 }
 
 .pause-button:active {
   transform: translateY(0);
+  box-shadow: 0 4px 8px rgba(236, 159, 146, 0.2);
 }
 
 .reset-button {
   padding: 1rem 2rem;
-  border: none;
+  border: 2px solid rgba(135, 206, 235, 0.5);
   border-radius: 15px;
   font-size: 1.1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   color: white;
   font-weight: 500;
-  background: rgba(52, 152, 219, 0.8);
+  background: rgba(135, 206, 235, 0.6);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 16px rgba(135, 206, 235, 0.2);
 }
 
 .reset-button:hover {
-  background: rgba(52, 152, 219, 1);
+  background: rgba(135, 206, 235, 0.75);
+  border-color: rgba(135, 206, 235, 0.7);
   transform: translateY(-2px);
+  box-shadow: 0 12px 20px rgba(135, 206, 235, 0.3);
 }
 
 .reset-button:active {
   transform: translateY(0);
+  box-shadow: 0 4px 8px rgba(135, 206, 235, 0.2);
 }
 </style>
