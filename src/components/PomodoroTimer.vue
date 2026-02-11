@@ -2,6 +2,21 @@
   <div class="pomodoro-timer">
     <h3>Pomodoro Timer</h3>
     
+    <!-- Session selector - only show when timer not running -->
+    <div v-if="!isRunning" class="session-selector">
+      <label>Number of work sessions:</label>
+      <div class="session-buttons">
+        <button 
+          v-for="n in 4" 
+          :key="n"
+          @click="totalSessions = n"
+          :class="['session-btn', { active: totalSessions === n }]"
+        >
+          {{ n }}
+        </button>
+      </div>
+    </div>
+    
     <div class="timer-display">
       <div class="time">{{ formattedTime }}</div>
     </div>
@@ -22,6 +37,11 @@ const timeLeft = ref(1500)
 
 // Track if timer is currently running
 const isRunning = ref(false)
+
+// Session management
+const totalSessions = ref(1)  // How many work sessions the user wants
+const currentSession = ref(1)  // Which session we're currently on
+const isWorkSession = ref(true)  // true = work (25min), false = break (5min)
 
 // Store the interval ID so we can stop it later
 let intervalId: number | null = null
@@ -88,6 +108,52 @@ const resetTimer = () => {
   font-weight: 300;
   font-size: 1.5rem;
   text-align: center;
+}
+
+.session-selector {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+}
+
+.session-selector label {
+  color: #2c3e50;
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.session-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.session-btn {
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid rgba(52, 152, 219, 0.3);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #2c3e50;
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.session-btn:hover {
+  background: rgba(52, 152, 219, 0.2);
+  border-color: rgba(52, 152, 219, 0.5);
+}
+
+.session-btn.active {
+  background: rgba(52, 152, 219, 0.8);
+  border-color: rgba(52, 152, 219, 1);
+  color: white;
 }
 
 .timer-display {
