@@ -7,7 +7,8 @@
     </div>
     
     <div class="timer-controls">
-      <button @click="startTimer" class="start-button">Start</button>
+      <button v-if="!isRunning" @click="startTimer" class="start-button">Start</button>
+      <button v-if="isRunning" @click="pauseTimer" class="pause-button">Pause</button>
     </div>
   </div>
 </template>
@@ -17,6 +18,12 @@ import { ref, computed } from 'vue'
 
 // Create reactive data - 25 minutes in seconds
 const timeLeft = ref(1500)
+
+// Track if timer is currently running
+const isRunning = ref(false)
+
+// Store the interval ID so we can stop it later
+let intervalId: number | null = null
 
 // Computed property - automatically calculates formatted time
 const formattedTime = computed(() => {
@@ -36,15 +43,34 @@ const formattedTime = computed(() => {
 
 // Function to start the timer countdown
 const startTimer = () => {
+  // Don't start if already running!
+  if (isRunning.value) {
+    return  // Exit the function early
+  }
+  
+  isRunning.value = true  // Mark as running
+  
   // setInterval runs code repeatedly every X milliseconds
-  // 1000 milliseconds = 1 second
-  setInterval(() => {
+  // Store the ID so we can stop it later!
+  intervalId = setInterval(() => {
     // Check if there's time left
     if (timeLeft.value > 0) {
       timeLeft.value = timeLeft.value - 1  // ← Here we use .value!
       // This could also be written as: timeLeft.value--
+    } else {
+      // Timer reached 0, stop automatically
+      pauseTimer()
     }
   }, 1000)  // Run every 1000ms (1 second)
+}
+
+// Function to pause/stop the timer
+const pauseTimer = () => {
+  if (intervalId !== null) {
+    clearInterval(intervalId)  // Stop the interval
+    intervalId = null  // Clear the ID
+  }
+  isRunning.value = false  // Mark as not running
 }
 </script>
 
@@ -96,6 +122,27 @@ const startTimer = () => {
 }
 
 .start-button:active {
+  transform: translateY(0);
+}
+
+.pause-button {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 15px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  font-weight: 500;
+  background: rgba(241, 196, 15, 0.8);
+}
+
+.pause-button:hover {
+  background: rgba(241, 196, 15, 1);
+  transform: translateY(-2px);
+}
+
+.pause-button:active {
   transform: translateY(0);
 }
 </style>
