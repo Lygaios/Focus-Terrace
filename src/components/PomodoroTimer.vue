@@ -1,12 +1,18 @@
 <template>
   <div class="pomodoro-timer">
     <h3>Pomodoro Timer</h3>
-    <p class="placeholder-text">Timer functionality coming soon...</p>
+    
+    <div class="timer-display">
+      <div class="time">{{ timeLeft }}</div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-// Basic Vue component - functionality will be added step by step
+import { ref } from 'vue'
+
+// Create reactive data - 25 minutes in seconds
+const timeLeft = ref(1500)
 </script>
 
 <style scoped>
@@ -15,12 +21,20 @@
   margin-bottom: 1.5rem;
   font-weight: 300;
   font-size: 1.5rem;
+  text-align: center;
 }
 
-.placeholder-text {
-  color: #34495e;
-  opacity: 0.8;
-  text-align: center;
-  font-style: italic;
+.timer-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem 0;
+}
+
+.time {
+  font-size: 4rem;
+  font-weight: 300;
+  color: #2c3e50;
+  font-family: 'Courier New', monospace;
 }
 </style>

@@ -7,8 +7,7 @@
     
     <div class="main-content">
       <div class="timer-panel">
-        <h3>Pomodoro Timer</h3>
-        <p class="placeholder-text">Timer functionality coming soon...</p>
+        <PomodoroTimer />
       </div>
     </div>
     
@@ -19,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-// Basic Vue component - functionality will be added step by step
+import PomodoroTimer from '../components/PomodoroTimer.vue'
 </script>
 
 <style scoped>
@@ -66,14 +65,6 @@
   min-height: 500px;
   width: 100%;
   max-width: 600px;
-}
-
-.timer-panel h3 {
-  color: #2c3e50;
-  margin-bottom: 1.5rem;
-  font-weight: 300;
-  font-size: 1.5rem;
-  text-align: center;
 }
 
 .placeholder-text {
