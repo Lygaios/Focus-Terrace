@@ -53,7 +53,7 @@ const startTimer = () => {
   
   // setInterval runs code repeatedly every X milliseconds
   // Store the ID so we can stop it later!
-  intervalId = setInterval(() => {
+  intervalId = window.setInterval(() => {
     // Check if there's time left
     if (timeLeft.value > 0) {
       timeLeft.value = timeLeft.value - 1  // ← Here we use .value!
@@ -68,7 +68,7 @@ const startTimer = () => {
 // Function to pause/stop the timer
 const pauseTimer = () => {
   if (intervalId !== null) {
-    clearInterval(intervalId)  // Stop the interval
+    window.clearInterval(intervalId)  // Stop the interval
     intervalId = null  // Clear the ID
   }
   isRunning.value = false  // Mark as not running
