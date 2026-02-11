@@ -17,6 +17,13 @@
       </div>
     </div>
     
+    <!-- Session status heading -->
+    <div class="session-status">
+      <h2 v-if="isWorkSession">Focus</h2>
+      <h2 v-else>Relax</h2>
+      <p class="session-info">Session {{ currentSession }} of {{ totalSessions }}</p>
+    </div>
+    
     <div class="timer-display">
       <div class="time">{{ formattedTime }}</div>
     </div>
@@ -79,8 +86,8 @@ const startTimer = () => {
       timeLeft.value = timeLeft.value - 1  // ← Here we use .value!
       // This could also be written as: timeLeft.value--
     } else {
-      // Timer reached 0, stop automatically
-      pauseTimer()
+      // Timer reached 0! Need to switch sessions
+      switchSession()
     }
   }, 1000)  // Run every 1000ms (1 second)
 }
@@ -94,10 +101,38 @@ const pauseTimer = () => {
   isRunning.value = false  // Mark as not running
 }
 
+// Function to handle session switching (work → break → work → etc.)
+const switchSession = () => {
+  if (isWorkSession.value) {
+    // Just finished a WORK session
+    
+    // Check if this was the LAST work session
+    if (currentSession.value >= totalSessions.value) {
+      // All done! Stop the timer
+      pauseTimer()
+      return  // Exit - no more sessions!
+    }
+    
+    // Not the last session, so take a break!
+    isWorkSession.value = false  // Switch to break mode
+    timeLeft.value = 300  // 5 minutes break (300 seconds)
+    
+  } else {
+    // Just finished a BREAK session
+    
+    // Move to next work session
+    currentSession.value++  // Increment session counter
+    isWorkSession.value = true  // Switch to work mode
+    timeLeft.value = 1500  // 25 minutes work (1500 seconds)
+  }
+}
+
 // Function to reset the timer back to 25:00
 const resetTimer = () => {
   pauseTimer()  // Stop the timer first
   timeLeft.value = 1500  // Reset to 25 minutes (1500 seconds)
+  currentSession.value = 1  // Reset to session 1
+  isWorkSession.value = true  // Reset to work mode
 }
 </script>
 
@@ -154,6 +189,24 @@ const resetTimer = () => {
   background: rgba(52, 152, 219, 0.8);
   border-color: rgba(52, 152, 219, 1);
   color: white;
+}
+
+.session-status {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.session-status h2 {
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.session-info {
+  color: #34495e;
+  font-size: 0.9rem;
+  opacity: 0.7;
 }
 
 .timer-display {
