@@ -5,6 +5,10 @@
     <div class="timer-display">
       <div class="time">{{ formattedTime }}</div>
     </div>
+    
+    <div class="timer-controls">
+      <button @click="startTimer" class="start-button">Start</button>
+    </div>
   </div>
 </template>
 
@@ -29,6 +33,19 @@ const formattedTime = computed(() => {
   
   return `${mm}:${ss}`  // "25:00"
 })
+
+// Function to start the timer countdown
+const startTimer = () => {
+  // setInterval runs code repeatedly every X milliseconds
+  // 1000 milliseconds = 1 second
+  setInterval(() => {
+    // Check if there's time left
+    if (timeLeft.value > 0) {
+      timeLeft.value = timeLeft.value - 1  // ← Here we use .value!
+      // This could also be written as: timeLeft.value--
+    }
+  }, 1000)  // Run every 1000ms (1 second)
+}
 </script>
 
 <style scoped>
@@ -52,5 +69,33 @@ const formattedTime = computed(() => {
   font-weight: 300;
   color: #2c3e50;
   font-family: 'Courier New', monospace;
+}
+
+.timer-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.start-button {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 15px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  font-weight: 500;
+  background: rgba(46, 204, 113, 0.8);
+}
+
+.start-button:hover {
+  background: rgba(46, 204, 113, 1);
+  transform: translateY(-2px);
+}
+
+.start-button:active {
+  transform: translateY(0);
 }
 </style>
