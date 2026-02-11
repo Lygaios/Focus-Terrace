@@ -246,6 +246,9 @@ const resetTimer = () => {
   background: rgba(72, 201, 176, 0.6);
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 16px rgba(72, 201, 176, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3),
+               0 0 8px rgba(255, 255, 255, 0.2);
+  -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.1);
 }
 
 .start-button:hover {
@@ -272,6 +275,9 @@ const resetTimer = () => {
   background: rgba(236, 159, 146, 0.6);
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 16px rgba(236, 159, 146, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3),
+               0 0 8px rgba(255, 255, 255, 0.2);
+  -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.1);
 }
 
 .pause-button:hover {
@@ -298,6 +304,9 @@ const resetTimer = () => {
   background: rgba(135, 206, 235, 0.6);
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 16px rgba(135, 206, 235, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3),
+               0 0 8px rgba(255, 255, 255, 0.2);
+  -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.1);
 }
 
 .reset-button:hover {
