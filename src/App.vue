@@ -30,12 +30,28 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #87CEEB 0%, #FFB6C1 100%);
+  background: url('/terrace.png') center/cover no-repeat fixed;
   min-height: 100vh;
+  position: relative;
+}
+
+/* Add a subtle overlay to ensure text readability */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(2px);
+  z-index: -1;
 }
 
 #app {
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
 .navigation {
