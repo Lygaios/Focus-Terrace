@@ -2,7 +2,6 @@
   <div class="pomodoro-timer">
     <h3>Pomodoro Timer</h3>
     
-    <!-- Session selector - only show when timer not running -->
     <div v-if="!isRunning" class="session-selector">
       <label>Number of work sessions:</label>
       <div class="session-buttons">
@@ -17,7 +16,6 @@
       </div>
     </div>
     
-    <!-- Session status heading -->
     <div class="session-status">
       <h2 v-if="isWorkSession">Focus</h2>
       <h2 v-else>Relax</h2>
@@ -39,100 +37,128 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 
-// Create reactive data - 25 minutes in seconds
+/**
+ * Reactive state: Time remaining in current session (in seconds)
+ * @type {Ref<number>}
+ * @default 1500 (25 minutes)
+ */
 const timeLeft = ref(1500)
 
-// Track if timer is currently running
+/**
+ * Reactive state: Whether the timer is currently running
+ * @type {Ref<boolean>}
+ * @default false
+ */
 const isRunning = ref(false)
 
-// Session management
-const totalSessions = ref(1)  // How many work sessions the user wants
-const currentSession = ref(1)  // Which session we're currently on
-const isWorkSession = ref(true)  // true = work (25min), false = break (5min)
+/**
+ * Reactive state: Total number of work sessions selected by user
+ * @type {Ref<number>}
+ * @default 1
+ */
+const totalSessions = ref(1)
 
-// Store the interval ID so we can stop it later
+/**
+ * Reactive state: Current session number (1-indexed)
+ * @type {Ref<number>}
+ * @default 1
+ */
+const currentSession = ref(1)
+
+/**
+ * Reactive state: Session type indicator
+ * @type {Ref<boolean>}
+ * @default true
+ * @description true = work session (25 min), false = break session (5 min)
+ */
+const isWorkSession = ref(true)
+
+/**
+ * Interval ID for the countdown timer
+ * @type {number | null}
+ */
 let intervalId: number | null = null
 
-// Computed property - automatically calculates formatted time
+/**
+ * Computed property that formats timeLeft as MM:SS string
+ * @returns {string} Formatted time string (e.g., "25:00", "04:59")
+ */
 const formattedTime = computed(() => {
-  // Get the current seconds from timeLeft
-  const totalSeconds = timeLeft.value  // ← Here we need .value!
-  
-  // Calculate minutes and seconds
-  const minutes = Math.floor(totalSeconds / 60)  // 1500 ÷ 60 = 25
-  const seconds = totalSeconds % 60               // 1500 % 60 = 0
-  
-  // Format as "MM:SS" with leading zeros
-  const mm = minutes.toString().padStart(2, '0')  // "25"
-  const ss = seconds.toString().padStart(2, '0')  // "00"
-  
-  return `${mm}:${ss}`  // "25:00"
+  const totalSeconds = timeLeft.value
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds % 60
+  const mm = minutes.toString().padStart(2, '0')
+  const ss = seconds.toString().padStart(2, '0')
+  return `${mm}:${ss}`
 })
 
-// Function to start the timer countdown
+/**
+ * Starts the countdown timer
+ * @description Creates an interval that decrements timeLeft every second.
+ * Prevents multiple intervals by checking isRunning state.
+ * Calls switchSession() when timer reaches zero.
+ */
 const startTimer = () => {
-  // Don't start if already running!
   if (isRunning.value) {
-    return  // Exit the function early
+    return
   }
   
-  isRunning.value = true  // Mark as running
+  isRunning.value = true
   
-  // setInterval runs code repeatedly every X milliseconds
-  // Store the ID so we can stop it later!
   intervalId = window.setInterval(() => {
-    // Check if there's time left
     if (timeLeft.value > 0) {
-      timeLeft.value = timeLeft.value - 1  // ← Here we use .value!
-      // This could also be written as: timeLeft.value--
+      timeLeft.value = timeLeft.value - 1
     } else {
-      // Timer reached 0! Need to switch sessions
       switchSession()
     }
-  }, 1000)  // Run every 1000ms (1 second)
+  }, 1000)
 }
 
-// Function to pause/stop the timer
+/**
+ * Pauses/stops the countdown timer
+ * @description Clears the interval and updates isRunning state
+ */
 const pauseTimer = () => {
   if (intervalId !== null) {
-    window.clearInterval(intervalId)  // Stop the interval
-    intervalId = null  // Clear the ID
+    window.clearInterval(intervalId)
+    intervalId = null
   }
-  isRunning.value = false  // Mark as not running
+  isRunning.value = false
 }
 
-// Function to handle session switching (work → break → work → etc.)
+/**
+ * Handles automatic session transitions
+ * @description Manages work → break → work cycle:
+ * - After work: starts break (5 min) or stops if last session
+ * - After break: increments session counter and starts next work (25 min)
+ */
 const switchSession = () => {
   if (isWorkSession.value) {
-    // Just finished a WORK session
-    
-    // Check if this was the LAST work session
     if (currentSession.value >= totalSessions.value) {
-      // All done! Stop the timer
       pauseTimer()
-      return  // Exit - no more sessions!
+      return
     }
-    
-    // Not the last session, so take a break!
-    isWorkSession.value = false  // Switch to break mode
-    timeLeft.value = 300  // 5 minutes break (300 seconds)
-    
+    isWorkSession.value = false
+    timeLeft.value = 300
   } else {
-    // Just finished a BREAK session
-    
-    // Move to next work session
-    currentSession.value++  // Increment session counter
-    isWorkSession.value = true  // Switch to work mode
-    timeLeft.value = 1500  // 25 minutes work (1500 seconds)
+    currentSession.value++
+    isWorkSession.value = true
+    timeLeft.value = 1500
   }
 }
 
-// Function to reset the timer back to 25:00
+/**
+ * Resets timer to initial state
+ * @description Stops timer and resets all values to defaults:
+ * - Time: 25:00
+ * - Session: 1
+ * - Mode: Work
+ */
 const resetTimer = () => {
-  pauseTimer()  // Stop the timer first
-  timeLeft.value = 1500  // Reset to 25 minutes (1500 seconds)
-  currentSession.value = 1  // Reset to session 1
-  isWorkSession.value = true  // Reset to work mode
+  pauseTimer()
+  timeLeft.value = 1500
+  currentSession.value = 1
+  isWorkSession.value = true
 }
 </script>
 

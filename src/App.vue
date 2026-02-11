@@ -18,7 +18,6 @@
 </template>
 
 <script setup lang="ts">
-// App component using TypeScript
 </script>
 
 <style>
@@ -35,7 +34,6 @@ body {
   position: relative;
 }
 
-/* Add a subtle overlay to ensure text readability */
 body::before {
   content: '';
   position: fixed;
