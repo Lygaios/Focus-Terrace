@@ -1,7 +1,7 @@
 {
   "name": "focus-terrace",
   "version": "1.0.0",
-  "description": "A focus tool with to-do list and Pomodoro timer",
+  "description": "A focus tool with a Pomodoro timer",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,8 +12,7 @@
   "keywords": [
     "focus",
     "productivity",
-    "pomodoro",
-    "todo"
+    "pomodoro"
   ],
   "author": "",
   "license": "ISC",
