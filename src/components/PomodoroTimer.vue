@@ -9,6 +9,7 @@
     <div class="timer-controls">
       <button v-if="!isRunning" @click="startTimer" class="start-button">Start</button>
       <button v-if="isRunning" @click="pauseTimer" class="pause-button">Pause</button>
+      <button @click="resetTimer" class="reset-button">Reset</button>
     </div>
   </div>
 </template>
@@ -71,6 +72,12 @@ const pauseTimer = () => {
     intervalId = null  // Clear the ID
   }
   isRunning.value = false  // Mark as not running
+}
+
+// Function to reset the timer back to 25:00
+const resetTimer = () => {
+  pauseTimer()  // Stop the timer first
+  timeLeft.value = 1500  // Reset to 25 minutes (1500 seconds)
 }
 </script>
 
@@ -143,6 +150,27 @@ const pauseTimer = () => {
 }
 
 .pause-button:active {
+  transform: translateY(0);
+}
+
+.reset-button {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 15px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  font-weight: 500;
+  background: rgba(52, 152, 219, 0.8);
+}
+
+.reset-button:hover {
+  background: rgba(52, 152, 219, 1);
+  transform: translateY(-2px);
+}
+
+.reset-button:active {
   transform: translateY(0);
 }
 </style>
